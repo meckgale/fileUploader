@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <% if (currentUser) {%>
+        <h1>Logged in as <%= currentUser.user_name %>
+        </h1>
+        <a href="/folders">FOLDERS</a>
+        <a href="/upload">UPLOAD</a>
+        <a href="/auth/logout">LOG OUT</a>
+        <% } else { %>
+            <a href="/auth/signup">SIGN UP</a>
+            <a href="/auth/login">LOG IN</a>
+            <%}%>
+</body>
+
+</html>
