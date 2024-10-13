@@ -37,7 +37,7 @@ model Folder {
 
 model File {
   id       String @id @default(uuid())
-  filename String
+  name     String
   folder   Folder @relation(fields: [folderId], references: [id])
   folderId String
 }

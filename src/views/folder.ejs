@@ -17,10 +17,30 @@
                 <% folders.forEach(function(folder) { %>
                     <li>
                         <%= folder.name %>
-                            <!-- Add buttons for edit/delete, depending on the CRUD operation -->
-                            <button onclick="deleteFolder('<%= folder.id %>')">Delete</button>
+                        <!-- Add buttons for edit/delete -->
+                        <form action="/folders/<%= folder.id %>/delete" method="POST" style="display:inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                        <form action="/folders/<%= folder.id %>" method="POST" style="display:inline;">
+                            <input type="text" name="name" value="<%= folder.name %>" required>
+                            <button type="submit">Update</button>
+                        </form>
+                        
+                        <!-- Form to upload file to this folder -->
+                        <form action="/folders/<%= folder.id %>/upload" method="POST" enctype="multipart/form-data">
+                            <input type="file" name="file" required>
+                            <button type="submit">Upload File</button>
+                        </form>
+                        <!-- Display files in the folder -->
+                        <ul>
+                            <% folder.files.forEach(function(file) { %>
+                                <li>
+                                    <a href="/files/<%= file.id %>/download"><%= file.name %></a> <!-- Download link -->
+                                </li>
+                            <% }) %>
+                        </ul>
                     </li>
-                    <% }) %>
+                <% }) %>
             </ul>
             <% } %>
 
@@ -29,18 +49,6 @@
                     <input type="text" name="name" placeholder="Folder name" required>
                     <button type="submit">Create Folder</button>
                 </form>
-
-                <script>
-                    function deleteFolder(id) {
-                        fetch(`/folders/${id}`, {
-                            method: 'DELETE',
-                        }).then(response => {
-                            if (response.ok) {
-                                window.location.reload();  // Reload page on successful deletion
-                            }
-                        });
-                    }
-                </script>
 </body>
 
 </html>

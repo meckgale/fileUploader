@@ -1,14 +1,17 @@
 const { Router } = require("express")
 const folderRoutes = Router();
 const folderController = require("../controllers/folderController");
+const fileController = require("../controllers/fileController");
 const isAuthenticated = require("../middleware/isAuthenticated");
 
 folderRoutes.post('/create', isAuthenticated, folderController.createFolder);
 
 folderRoutes.get('/', isAuthenticated, folderController.getFolders);
 
-folderRoutes.put('/:id', isAuthenticated, folderController.updateFolder);
+folderRoutes.post('/:folderId/update', isAuthenticated, folderController.updateFolder);
 
-folderRoutes.delete('/:id', isAuthenticated, folderController.deleteFolder);
+folderRoutes.post('/:folderId/delete', isAuthenticated, folderController.deleteFolder);
+
+folderRoutes.post('/:folderId/upload', isAuthenticated, fileController.uploadFile);
 
 module.exports = folderRoutes;

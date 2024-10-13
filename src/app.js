@@ -50,10 +50,5 @@ app.use(express.static(path.join(__dirname, 'views')));
 // Routes
 app.use("/", indexRoutes);
 
-// Example route to serve the file upload form
-app.get('/upload', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'uploadForm.ejs'));
-});
-
 
 module.exports = app; // Export the configured app

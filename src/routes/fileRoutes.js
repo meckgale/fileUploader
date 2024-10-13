@@ -1,9 +1,9 @@
 const { Router } = require("express");
 const fileRoutes = Router();
-const { uploadFile } = require('../controllers/fileController');
-const upload = require('../middleware/multerConfig');
+const fileController = require('../controllers/fileController');
+const isAuthenticated = require('../middleware/isAuthenticated');
 
-// Route for file upload
-fileRoutes.post('/upload', upload.single('file'), uploadFile);  // 'file' is the field name in the form
+fileRoutes.post('/:folderId/upload', isAuthenticated, fileController.uploadFile);
+fileRoutes.get('/:id/download', isAuthenticated, fileController.downloadFile);
 
 module.exports = fileRoutes;
