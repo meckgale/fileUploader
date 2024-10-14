@@ -16,10 +16,10 @@
             <ul>
                 <% folders.forEach(function(folder) { %>
                     <li>
-                        <%= folder.name %>
+                        <a href="/folders/<%= folder.id %>"><%= folder.name %></a>
                         <!-- Add buttons for edit/delete -->
                         <form action="/folders/<%= folder.id %>/delete" method="POST" style="display:inline;">
-                            <button type="submit">Delete</button>
+                            <button type="submit">Delete Folder</button>
                         </form>
                         <form action="/folders/<%= folder.id %>" method="POST" style="display:inline;">
                             <input type="text" name="name" value="<%= folder.name %>" required>
@@ -36,6 +36,9 @@
                             <% folder.files.forEach(function(file) { %>
                                 <li>
                                     <a href="/files/<%= file.id %>/download"><%= file.name %></a> <!-- Download link -->
+                                    <form action="/files/<%= file.id %>/delete" method="POST" style="display:inline;">
+                                        <button type="submit">Delete File</button> <!-- Delete file button -->
+                                    </form>
                                 </li>
                             <% }) %>
                         </ul>
