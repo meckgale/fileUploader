@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Details</title>
+</head>
+
+<body>
+    <h1>File: <%= file.name %></h1>
+
+    <!-- Download link -->
+    <a href="/files/<%= file.id %>/download">Download <%= file.name %></a>
+
+    <!-- Delete file button -->
+    <form action="/files/<%= file.id %>/delete" method="POST" style="display:inline;">
+        <button type="submit">Delete File</button>
+    </form>
+
+    <!-- Option to go back to the folder contents -->
+    <a href="/folders/<%= file.folderId %>">Back to Folder</a>
+</body>
+
+</html>

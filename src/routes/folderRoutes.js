@@ -8,8 +8,6 @@ folderRoutes.post('/create', isAuthenticated, folderController.createFolder);
 
 folderRoutes.get('/', isAuthenticated, folderController.getFolders);
 
-folderRoutes.get('/folders/:folderId', isAuthenticated, folderController.getFolderContents);
-
 folderRoutes.get('/:folderId', isAuthenticated, folderController.getFolderContents);
 
 folderRoutes.post('/:folderId/update', isAuthenticated, folderController.updateFolder);

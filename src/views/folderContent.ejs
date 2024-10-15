@@ -8,6 +8,11 @@
 <body>
     <h1>Folder: <%= folder.name %></h1>
 
+    <!-- Delete folder button -->
+    <form action="/folders/<%= folder.id %>/delete" method="POST" style="display:inline;">
+        <button type="submit">Delete Folder</button>
+    </form>
+
     <!-- List files in the folder -->
     <% if (folder.files.length === 0) { %>
         <p>No files in this folder.</p>
@@ -15,7 +20,7 @@
         <ul>
             <% folder.files.forEach(function(file) { %>
                 <li>
-                    <a href="/files/<%= file.id %>/download"><%= file.name %></a> <!-- Download link -->
+                    <a href="/files/<%= file.id %>"><%= file.name %></a> 
                 </li>
             <% }) %>
         </ul>
