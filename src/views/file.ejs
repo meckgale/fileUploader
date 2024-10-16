@@ -1,25 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>File Details</title>
-</head>
+  </head>
 
-<body>
-    <h1>File: <%= file.name %></h1>
+  <body>
+    <a href="/">Back to Home</a>
+
+    <h1>File Name: <%= file.originalName %></h1>
+
+    <h3>File Type: <%= file.extension ? file.extension : "not defined" %></h3>
+
+    <h3>File Size: <%= (file.size / 1024).toFixed(2) %> KB</h3>
+
+    <h3>Uploaded at: <%= new Date(file.createdAt).toLocaleString() %></h3>
 
     <!-- Download link -->
-    <a href="/files/<%= file.id %>/download">Download <%= file.name %></a>
+    <a href="/files/<%= file.id %>/download"><button>Download</button></a>
 
     <!-- Delete file button -->
-    <form action="/files/<%= file.id %>/delete" method="POST" style="display:inline;">
-        <button type="submit">Delete File</button>
+    <form
+      action="/files/<%= file.id %>/delete"
+      method="POST"
+      style="display: inline"
+    >
+      <button type="submit">Delete File</button>
     </form>
 
     <!-- Option to go back to the folder contents -->
     <a href="/folders/<%= file.folderId %>">Back to Folder</a>
-</body>
-
+  </body>
 </html>

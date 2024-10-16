@@ -1,0 +1,14 @@
+<form
+  action="/folders/<%= folder.id %>/update"
+  method="POST"
+  style="display: inline"
+>
+  <input
+    type="text"
+    name="name"
+    placeholder="Enter new folder name"
+    value="<%= folder.name %>"
+    required
+  />
+  <button type="submit">Update Folder</button>
+</form>

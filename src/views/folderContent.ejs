@@ -1,38 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Folder Contents</title>
-</head>
-<body>
+  </head>
+  <body>
+    <a href="/">Back to Home</a>
     <h1>Folder: <%= folder.name %></h1>
 
-    <!-- Delete folder button -->
-    <form action="/folders/<%= folder.id %>/delete" method="POST" style="display:inline;">
+    <div>
+      <a href="/folders/<%= folder.id %>/update"
+        ><button>Update Folder</button></a
+      >
+
+      <!-- Delete folder button -->
+      <form
+        action="/folders/<%= folder.id %>/delete"
+        method="POST"
+        style="display: inline"
+      >
         <button type="submit">Delete Folder</button>
-    </form>
+      </form>
+    </div>
 
     <!-- List files in the folder -->
     <% if (folder.files.length === 0) { %>
-        <p>No files in this folder.</p>
+    <p>No files in this folder.</p>
     <% } else { %>
-        <ul>
-            <% folder.files.forEach(function(file) { %>
-                <li>
-                    <a href="/files/<%= file.id %>"><%= file.name %></a> 
-                </li>
-            <% }) %>
-        </ul>
+    <ul>
+      <% folder.files.forEach(function(file) { %>
+      <li>
+        <a href="/files/<%= file.id %>"><%= file.name %></a>
+      </li>
+      <% }) %>
+    </ul>
     <% } %>
 
     <!-- Form to upload file to this folder -->
-    <form action="/folders/<%= folder.id %>/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" required>
-        <button type="submit">Upload File</button>
+    <form
+      action="/folders/<%= folder.id %>/upload"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <input type="file" name="file" required />
+      <button type="submit">Upload File</button>
     </form>
 
     <!-- Option to go back to the list of folders -->
     <a href="/folders">Back to Folders</a>
-</body>
+  </body>
 </html>

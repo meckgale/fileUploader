@@ -31,11 +31,17 @@ exports.uploadFile = [
     const folderId = req.params.folderId; // Folder ID from URL
 
     try {
+      // Extract the file extension from the original name
+      const extension = path.extname(req.file.originalname);
       // Save file to the folder in DB
       const newFile = await prisma.file.create({
         data: {
-          name: req.file.generatedName,
+          name: req.file.generatedName, // Store the generated name
+          originalName: req.file.originalname, // Store the original name
           folderId: folderId, // Associate file with folder
+          extension: extension,
+          size: req.file.size, // Save the file size in bytes
+          createdAt: req.file.createdAt,
         },
       });
 

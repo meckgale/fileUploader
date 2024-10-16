@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manage Folders</title>
-</head>
+  </head>
 
-<body>
+  <body>
+    <a href="/">Back to Home</a>
     <h1>Your Folders</h1>
+    <!-- Create new folder form -->
+    <form action="/folders/create" method="POST">
+      <input type="text" name="name" placeholder="Folder name" required />
+      <button type="submit">Create Folder</button>
+    </form>
     <% if (folders.length===0) { %>
-        <p>No folders available.</p>
-        <% } else { %>
-            <!-- List of folders -->
-            <ul>
-                <% folders.forEach(function(folder) { %>
-                    <li>
-                        <a href="/folders/<%= folder.id %>"><%= folder.name %></a>
-                    </li>
-                <% }) %>
-            </ul>
-            <% } %>
-
-                <!-- Create new folder form -->
-                <form action="/folders/create" method="POST">
-                    <input type="text" name="name" placeholder="Folder name" required>
-                    <button type="submit">Create Folder</button>
-                </form>
-</body>
-
+    <p>No folders available.</p>
+    <% } else { %>
+    <!-- List of folders -->
+    <ul>
+      <% folders.forEach(function(folder) { %>
+      <li>
+        <a href="/folders/<%= folder.id %>"><%= folder.name %></a>
+      </li>
+      <% }) %>
+    </ul>
+    <% } %>
+  </body>
 </html>

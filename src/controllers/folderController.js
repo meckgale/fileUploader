@@ -20,6 +20,26 @@ exports.createFolder = async (req, res) => {
   }
 };
 
+exports.getFolderUpdate = async (req, res) => {
+  const folderId = req.params.folderId;
+
+  try {
+    // Fetch the folder from the database to pre-fill the form
+    const folder = await prisma.folder.findUnique({
+      where: { id: folderId },
+    });
+
+    if (!folder) {
+      return res.status(404).json({ error: "Folder not found" });
+    }
+
+    // Render the updateFolder.ejs file with the folder data
+    res.render("updateFolder", { folder });
+  } catch (error) {
+    res.status(500).json({ error: "Unable to fetch folder" });
+  }
+};
+
 exports.getFolders = async (req, res) => {
   const userId = req.user.id;
 
@@ -44,11 +64,11 @@ exports.updateFolder = async (req, res) => {
   const { name } = req.body;
 
   try {
-    const updatedFolder = await prisma.folder.update({
+    await prisma.folder.update({
       where: { id: folderId },
       data: { name },
     });
-    res.status(200).json(updatedFolder);
+    res.redirect("/folders");
   } catch (error) {
     res.status(500).json({ error: "Unable to update folder" });
   }

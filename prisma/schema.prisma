@@ -37,9 +37,12 @@ model Folder {
 }
 
 model File {
-  id        String   @id @default(uuid())
-  name      String
-  folder    Folder   @relation(fields: [folderId], references: [id])
-  folderId  String
-  createdAt DateTime @default(now())
+  id           String   @id @default(uuid())
+  name         String
+  originalName String?
+  extension    String?
+  folder       Folder   @relation(fields: [folderId], references: [id])
+  folderId     String
+  size         Int // File size in bytes
+  createdAt    DateTime @default(now())
 }
