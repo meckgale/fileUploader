@@ -9,6 +9,14 @@
   <body>
     <a href="/">Back to Home</a>
     <h1>Your Folders</h1>
+
+    <!-- Display flash messages -->
+    <% if (successMessage) { %>
+    <div><%= successMessage %></div>
+    <% } %> <% if (errorMessage) { %>
+    <div><%= errorMessage %></div>
+    <% } %>
+
     <!-- Create new folder form -->
     <form action="/folders/create" method="POST">
       <input type="text" name="name" placeholder="Folder name" required />

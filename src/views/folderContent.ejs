@@ -9,7 +9,20 @@
     <a href="/">Back to Home</a>
     <h1>Folder: <%= folder.name %></h1>
 
+    <!-- Display flash messages -->
+    <% if (successMessage) { %>
+    <div><%= successMessage %></div>
+    <% } %> <% if (errorMessage) { %>
+    <div><%= errorMessage %></div>
+    <% } %>
+
     <div>
+      <form action="/folders/<%= folder.id %>/share" method="POST">
+        <label for="duration">Share for (e.g., 1d, 10d):</label>
+        <input type="text" name="duration" placeholder="1d" required />
+        <button type="submit">Generate Shareable Link</button>
+      </form>
+
       <a href="/folders/<%= folder.id %>/update"
         ><button>Update Folder</button></a
       >

@@ -38,4 +38,8 @@ folderRoutes.post(
   fileController.uploadFile
 );
 
+folderRoutes.post("/:folderId/share", folderController.shareFolder);
+
+folderRoutes.get("/share/:shareToken", folderController.viewSharedFolder);
+
 module.exports = folderRoutes;

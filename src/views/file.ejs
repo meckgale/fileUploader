@@ -9,6 +9,13 @@
   <body>
     <a href="/">Back to Home</a>
 
+    <!-- Display flash messages -->
+    <% if (successMessage) { %>
+    <div><%= successMessage %></div>
+    <% } %> <% if (errorMessage) { %>
+    <div><%= errorMessage %></div>
+    <% } %>
+
     <h1>File Name: <%= file.originalName %></h1>
 
     <h3>File Type: <%= file.extension ? file.extension : "not defined" %></h3>

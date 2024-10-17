@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shared Folder</title>
+  </head>
+  <body>
+    <h1>Shared Folder: <%= folder.name %></h1>
+    <% if (folder.files.length > 0) { %>
+    <ul>
+      <% folder.files.forEach(function(file) { %>
+      <li>
+        <a href="<%= file.path %>"><%= file.originalName %></a>
+      </li>
+      <% }) %>
+    </ul>
+    <% } else { %>
+    <p>No files in this folder.</p>
+    <% } %>
+  </body>
+</html>

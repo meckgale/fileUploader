@@ -23,6 +23,8 @@ CREATE TABLE "Folder" (
     "name" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "shareToken" TEXT,
+    "expiresAt" TIMESTAMP(3),
 
     CONSTRAINT "Folder_pkey" PRIMARY KEY ("id")
 );
@@ -31,6 +33,7 @@ CREATE TABLE "Folder" (
 CREATE TABLE "File" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "path" TEXT NOT NULL,
     "originalName" TEXT,
     "extension" TEXT,
     "folderId" TEXT NOT NULL,

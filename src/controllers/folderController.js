@@ -1,7 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const fs = require("fs");
+const cloudinary = require("../config/cloudinary");
 const path = require("path");
+const { v4: uuidv4 } = require("uuid");
 
 exports.createFolder = async (req, res) => {
   const { name } = req.body;
@@ -106,28 +107,22 @@ exports.deleteFolder = async (req, res) => {
     if (files.length > 0) {
       // Loop through the files and delete them from both the file system and the database
       for (const file of files) {
-        // Construct the file path
-        const filePath = path.join(
-          __dirname,
-          "../../uploads",
-          file.folderId,
-          file.name
-        );
+        // Extract the Cloudinary public ID from the file path (URL)
+        const publicId = file.path.split("/").pop().split(".")[0]; // Adjust if necessary for how Cloudinary URLs are structured
 
-        // Check if the file exists
-        if (fs.existsSync(filePath)) {
-          try {
-            // Delete the file from the server
-            fs.unlinkSync(filePath);
-          } catch (err) {
-            console.error("Error deleting file from the server:", err);
-          }
-        } else {
-          console.log("File not found on the server:", filePath);
+        try {
+          // Delete the file from Cloudinary
+          await cloudinary.uploader.destroy(publicId);
+          console.log(`File deleted from Cloudinary: ${file.originalName}`);
+        } catch (error) {
+          console.error(
+            `Error deleting file from Cloudinary: ${file.originalName}`,
+            error
+          );
         }
 
-        // Delete the file from the database
-        await prisma.file.deleteMany({
+        // Delete the files from the database
+        await prisma.file.delete({
           where: { id: file.id },
         });
       }
@@ -138,30 +133,78 @@ exports.deleteFolder = async (req, res) => {
       where: { id: folderId },
     });
 
-    // Remove the folder from the file system
-    const folderPath = path.join(__dirname, "../../uploads", folderId);
-    console.log("Attempting to delete folder at path:", folderPath);
-
-    // Check if folder exists before trying to delete it
-    if (fs.existsSync(folderPath)) {
-      console.log("Attempting to delete folder at path:", folderPath);
-      try {
-        fs.rmSync(folderPath, { recursive: true });
-        console.log("Folder deleted from the file system:", folderPath);
-      } catch (err) {
-        console.error("Error deleting folder from the file system:", err);
-        return res
-          .status(500)
-          .json({ error: "Unable to delete folder from the file system" });
-      }
-    } else {
-      console.log("Folder not found on the server:", folderPath);
-    }
-
     // Redirect to /folders after successful deletion
     return res.redirect("/folders");
   } catch (error) {
     console.error("Error deleting folder:", error); // Log the error for debugging
     return res.status(500).json({ error: "Unable to delete folder" });
+  }
+};
+
+exports.shareFolder = async (req, res) => {
+  const folderId = req.params.folderId;
+  const { duration } = req.body; // Get duration from form input
+
+  try {
+    // Generate a unique share token
+    const shareToken = uuidv4();
+
+    // Calculate expiration date based on the given duration
+    let expiresAt;
+    if (duration) {
+      expiresAt = new Date();
+      if (duration.endsWith("d")) {
+        expiresAt.setDate(expiresAt.getDate() + parseInt(duration));
+      }
+      // You can extend this logic to support hours/minutes if needed.
+    }
+    // Update the folder with the generated shareToken and expiration date
+    await prisma.folder.update({
+      where: { id: folderId },
+      data: { shareToken, expiresAt },
+    });
+
+    // Use BASE_URL from environment variables
+    const baseUrl =
+      process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
+    const shareableLink = `${baseUrl}/share/${shareToken}`;
+
+    req.flash(
+      "success",
+      `Folder shared successfully! Shareable link: ${shareableLink}`
+    );
+    res.redirect(`/folders/${folderId}`);
+  } catch (error) {
+    console.error("Error sharing folder:", error);
+    res.status(500).json({ error: "Failed to share folder" });
+  }
+};
+
+exports.viewSharedFolder = async (req, res) => {
+  const { shareToken } = req.params;
+
+  try {
+    // Find the folder associated with the shareToken
+    const folder = await prisma.folder.findFirst({
+      where: {
+        shareToken: shareToken,
+        expiresAt: {
+          gte: new Date(), // Ensure the share link is not expired
+        },
+      },
+      include: { files: true },
+    });
+
+    if (!folder) {
+      return res
+        .status(404)
+        .json({ error: "Shared folder not found or link expired" });
+    }
+
+    // Render a view to display the folder's contents
+    res.render("sharedFolder", { folder });
+  } catch (error) {
+    console.error("Error accessing shared folder:", error);
+    res.status(500).json({ error: "Unable to access shared folder" });
   }
 };
