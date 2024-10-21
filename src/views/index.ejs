@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+  <%- include('partials/header') %>
 
-<head>
-    <meta charset="UTF-8" />
-    <title>
-        <%= title %>
-    </title>
-</head>
-
-<body>
-    <% if (currentUser) {%>
-        <h1>Logged in as <%= currentUser.username %>
-        </h1>
-        <a href="/folders">FOLDERS</a>
-        <a href="/auth/logout">LOG OUT</a>
-        <% } else { %>
-            <a href="/auth/signup">SIGN UP</a>
-            <a href="/auth/login">LOG IN</a>
-            <%}%>
-</body>
-
+  <body>
+    <%- include('partials/navbar') %>
+    <!-- Display flash messages -->
+    <% if (successMessage) { %>
+    <div><%= successMessage %></div>
+    <% } %> <% if (errorMessage) { %>
+    <div><%= errorMessage %></div>
+    <% } %> <% if (currentUser) {%>
+    <h1>Logged in as <%= currentUser.username %></h1>
+    <a href="/folders">FOLDERS</a>
+    <a href="/auth/logout">LOG OUT</a>
+    <% } else { %>
+    <a href="/auth/signup">SIGN UP</a>
+    <a href="/auth/login">LOG IN</a>
+    <%}%>
+  </body>
 </html>

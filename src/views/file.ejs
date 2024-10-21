@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>File Details</title>
-  </head>
+  <%- include('partials/header') %>
 
   <body>
+    <%- include('partials/navbar') %>
     <a href="/">Back to Home</a>
 
     <!-- Display flash messages -->
@@ -25,7 +22,9 @@
     <h3>Uploaded at: <%= new Date(file.createdAt).toLocaleString() %></h3>
 
     <!-- Download link -->
-    <a href="/files/<%= file.id %>/download"><button>Download</button></a>
+    <a href="/files/<%= file.id %>/download"
+      ><button class="btn btn-sm">Download</button></a
+    >
 
     <!-- Delete file button -->
     <form
@@ -33,7 +32,7 @@
       method="POST"
       style="display: inline"
     >
-      <button type="submit">Delete File</button>
+      <button type="submit" class="btn btn-sm">Delete File</button>
     </form>
 
     <!-- Option to go back to the folder contents -->

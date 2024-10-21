@@ -51,7 +51,7 @@ app.use((req, res, next) => {
 });
 
 // Middleware to serve static files like HTML
-app.use(express.static(path.join(__dirname, "views")));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 app.use("/", indexRoutes);

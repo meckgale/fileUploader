@@ -1,11 +1,22 @@
-<div>
-    <h1>Please log in</h1>
-    <form action="/auth/login" method="POST">
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/header') %>
+  <body>
+    <div>
+      <h1>Please log in</h1>
+      <form action="/auth/login" method="POST">
         <label for="username">Username</label>
-        <input id="username" name="username" placeholder="username" type="text" />
+        <input
+          id="username"
+          name="username"
+          placeholder="username"
+          type="text"
+        />
         <label for="password">Password</label>
         <input id="password" name="password" type="password" />
-        <button type="submit">Log In</button>
-    </form>
-    <a href="/">Back to home</a>
-</div>
+        <button type="submit" class="btn btn-primary mt-4">Log In</button>
+      </form>
+      <a href="/">Back to home</a>
+    </div>
+  </body>
+</html>

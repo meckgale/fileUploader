@@ -1,38 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Manage Folders</title>
-  </head>
+  <%- include('partials/header') %>
 
   <body>
+    <%- include('partials/navbar') %>
     <a href="/">Back to Home</a>
-    <h1>Your Folders</h1>
+    <h1 class="text-3xl p-6"><%= currentUser.username %>'s Folders</h1>
 
     <!-- Display flash messages -->
     <% if (successMessage) { %>
     <div><%= successMessage %></div>
     <% } %> <% if (errorMessage) { %>
     <div><%= errorMessage %></div>
-    <% } %>
-
-    <!-- Create new folder form -->
-    <form action="/folders/create" method="POST">
-      <input type="text" name="name" placeholder="Folder name" required />
-      <button type="submit">Create Folder</button>
-    </form>
-    <% if (folders.length===0) { %>
+    <% } %> <% if (folders.length===0) { %>
     <p>No folders available.</p>
     <% } else { %>
     <!-- List of folders -->
-    <ul>
+    <ul class="list-disc p-6">
       <% folders.forEach(function(folder) { %>
-      <li>
+      <li class="link-neutral link-hover text-xl">
         <a href="/folders/<%= folder.id %>"><%= folder.name %></a>
       </li>
       <% }) %>
     </ul>
     <% } %>
+
+    <!-- Create new folder form -->
+    <form action="/folders/create" method="POST" class="p-6">
+      <input
+        type="text"
+        name="name"
+        placeholder="Type folder name"
+        class="input input-bordered input-sm w-full max-w-xs"
+        required
+      />
+      <button type="submit" class="btn btn-sm">Create Folder</button>
+    </form>
   </body>
 </html>

@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Folder Contents</title>
-  </head>
+  <%- include('partials/header') %>
   <body>
+    <%- include('partials/navbar') %>
     <a href="/">Back to Home</a>
-    <h1>Folder: <%= folder.name %></h1>
+    <h1 class="text-3xl">Folder: <%= folder.name %></h1>
 
     <!-- Display flash messages -->
     <% if (successMessage) { %>
@@ -19,12 +16,20 @@
     <div>
       <form action="/folders/<%= folder.id %>/share" method="POST">
         <label for="duration">Share for (e.g., 1d, 10d):</label>
-        <input type="text" name="duration" placeholder="1d" required />
-        <button type="submit">Generate Shareable Link</button>
+        <input
+          type="text"
+          name="duration"
+          placeholder="1d"
+          class="file-input file-input-bordered file-input-sm w-1/5 max-w-xs"
+          required
+        />
+        <button type="submit" class="btn btn-sm">
+          Generate Shareable Link
+        </button>
       </form>
 
       <a href="/folders/<%= folder.id %>/update"
-        ><button>Update Folder</button></a
+        ><button class="btn btn-sm">Update Folder</button></a
       >
 
       <!-- Delete folder button -->
@@ -33,7 +38,7 @@
         method="POST"
         style="display: inline"
       >
-        <button type="submit">Delete Folder</button>
+        <button type="submit" class="btn btn-sm">Delete Folder</button>
       </form>
     </div>
 
@@ -41,10 +46,12 @@
     <% if (folder.files.length === 0) { %>
     <p>No files in this folder.</p>
     <% } else { %>
-    <ul>
+    <ul class="list-disc p-6">
       <% folder.files.forEach(function(file) { %>
-      <li>
-        <a href="/files/<%= file.id %>"><%= file.name %></a>
+      <li class="list-item list-outside">
+        <a class="link link-hover" href="/files/<%= file.id %>"
+          ><%= file.name %></a
+        >
       </li>
       <% }) %>
     </ul>
@@ -56,8 +63,13 @@
       method="POST"
       enctype="multipart/form-data"
     >
-      <input type="file" name="file" required />
-      <button type="submit">Upload File</button>
+      <input
+        type="file"
+        name="file"
+        class="file-input file-input-bordered file-input-sm w-full max-w-xs"
+        required
+      />
+      <button type="submit" class="btn btn-sm">Upload File</button>
     </form>
 
     <!-- Option to go back to the list of folders -->

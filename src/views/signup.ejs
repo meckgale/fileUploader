@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html>
+  <%- include('partials/header') %>
 
-<head>
-    <title>
-        <%= title %>
-    </title>
-</head>
-
-<body>
-    <h1>
-        <%= title %>
-    </h1>
+  <body>
+    <h1><%= title %></h1>
     <%- include("partials/errors.ejs") %>
-        <form action="/auth/signup" method="POST">
-            <label for="username">Username: </label>
-            <input type="text" name="username" id="username" required />
-            <label for="password">Password: </label>
-            <input type="password" name="password" id="password" required />
-            <label for="passwordConfirmation">Confirm Password: </label>
-            <input type="password" name="passwordConfirmation" id="passwordConfirmation" required />
-            <button type="submit">Submit</button>
-        </form>
-        <a href="/">Back to home</a>
-</body>
-
+    <form action="/auth/signup" method="POST">
+      <label for="username">Username: </label>
+      <input type="text" name="username" id="username" required />
+      <label for="password">Password: </label>
+      <input type="password" name="password" id="password" required />
+      <label for="passwordConfirmation">Confirm Password: </label>
+      <input
+        type="password"
+        name="passwordConfirmation"
+        id="passwordConfirmation"
+        required
+      />
+      <button type="submit">Submit</button>
+    </form>
+    <a href="/">Back to home</a>
+  </body>
 </html>
