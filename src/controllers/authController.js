@@ -65,7 +65,7 @@ exports.login = (req, res, next) => {
       }
       console.log("Login successful!");
       req.flash("success", "Logged in successfully");
-      res.redirect("/");
+      res.redirect("/folders");
     });
   })(req, res, next);
 };

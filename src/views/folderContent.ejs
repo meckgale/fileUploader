@@ -1,168 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include('partials/header') %>
-  <body>
+  <body class="min-h-screen flex flex-col">
     <%- include('partials/navbar') %>
-    <a href="/">Back to Home</a>
 
-    <div class="breadcrumbs text-xl p-4">
-      <ul>
-        <li>
-          <a href="/folders">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              class="h-4 w-4 stroke-current"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-              ></path>
-            </svg>
-            <span class="ml-2"><%= folder.name %></span>
-          </a>
-        </li>
-        <li>
-          <span class="inline-flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              class="h-4 w-4 stroke-current"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              ></path>
-            </svg>
-            Files
-          </span>
-        </li>
-      </ul>
-    </div>
+    <main class="flex-grow">
+      <div class="breadcrumbs text-xl p-4">
+        <ul>
+          <li>
+            <a href="/folders">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                class="h-4 w-4 stroke-current"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+                ></path>
+              </svg>
+              <span class="ml-2"><%= folder.name %></span>
+            </a>
+          </li>
+          <li>
+            <span class="inline-flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                class="h-4 w-4 stroke-current"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                ></path>
+              </svg>
+              Files
+            </span>
+          </li>
+        </ul>
+      </div>
 
-    <!-- Display flash messages -->
-    <% if (successMessage) { %>
-    <div><%= successMessage %></div>
-    <% } %> <% if (errorMessage) { %>
-    <div><%= errorMessage %></div>
-    <% } %>
-
-    <div class="p-4">
-      <!-- Delete folder button -->
-      <button
-        class="btn btn-sm ml-1"
-        onclick="document.getElementById('deleteModal').showModal()"
-      >
-        Delete Folder
-      </button>
-
-      <!-- Modal for confirming deletion -->
-      <dialog id="deleteModal" class="modal">
-        <div class="modal-box">
-          <h3 class="text-lg font-bold">
-            Are you sure you want to delete this folder?
-          </h3>
-          <p class="py-4">
-            Deleting this folder will also remove all files it contains. <br />
-            This action is permanent and cannot be undone!
-          </p>
-          <div class="modal-action">
-            <!-- Yes button submits the form -->
-            <form
-              action="/folders/<%= folder.id %>/delete"
-              method="POST"
-              style="display: inline"
-            >
-              <button type="submit" class="btn btn-sm">Yes</button>
-            </form>
-            <!-- No button closes the modal -->
-            <button
-              class="btn btn-sm"
-              onclick="document.getElementById('deleteModal').close()"
-            >
-              No
-            </button>
-          </div>
-        </div>
-      </dialog>
-
-      <details class="dropdown dropdown-right p-4">
-        <summary class="btn btn-sm">Update Folder</summary>
-        <form
-          action="/folders/<%= folder.id %>/update"
-          method="POST"
-          class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow flex items-center space-x-2"
+      <div class="p-4">
+        <!-- Delete folder button -->
+        <button
+          class="btn btn-sm ml-1"
+          onclick="document.getElementById('deleteModal').showModal()"
         >
+          Delete Folder
+        </button>
+
+        <!-- Modal for confirming deletion -->
+        <dialog id="deleteModal" class="modal">
+          <div class="modal-box">
+            <h3 class="text-lg font-bold">
+              Are you sure you want to delete this folder?
+            </h3>
+            <p class="py-4">
+              Deleting this folder will also remove all files it contains.
+              <br />
+              This action is permanent and cannot be undone!
+            </p>
+            <div class="modal-action">
+              <!-- Yes button submits the form -->
+              <form
+                action="/folders/<%= folder.id %>/delete"
+                method="POST"
+                style="display: inline"
+              >
+                <button type="submit" class="btn btn-sm">Yes</button>
+              </form>
+              <!-- No button closes the modal -->
+              <button
+                class="btn btn-sm"
+                onclick="document.getElementById('deleteModal').close()"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </dialog>
+
+        <details class="dropdown dropdown-right p-4">
+          <summary class="btn btn-sm">Update Folder</summary>
+          <form
+            action="/folders/<%= folder.id %>/update"
+            method="POST"
+            class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow flex items-center space-x-2"
+          >
+            <input
+              type="text"
+              name="name"
+              placeholder="Type folder name"
+              class="input input-bordered input-sm w-full max-w-xs mb-2"
+              required
+            />
+            <button type="submit" class="btn btn-xs ml-2">Update</button>
+          </form>
+        </details>
+      </div>
+
+      <div class="p-4">
+        <form action="/folders/<%= folder.id %>/share" method="POST">
+          <label for="duration">Share for (e.g., 1d, 10d):</label>
           <input
             type="text"
-            name="name"
-            placeholder="Type folder name"
-            class="input input-bordered input-sm w-full max-w-xs mb-2"
+            name="duration"
+            placeholder="1d"
+            class="file-input file-input-bordered file-input-sm w-1/5 max-w-xs ml-1"
             required
           />
-          <button type="submit" class="btn btn-xs ml-2">Update</button>
+          <button type="submit" class="btn btn-sm ml-1">
+            Generate Shareable Link
+          </button>
         </form>
-      </details>
-    </div>
+      </div>
 
-    <div class="p-4">
-      <form action="/folders/<%= folder.id %>/share" method="POST">
-        <label for="duration">Share for (e.g., 1d, 10d):</label>
-        <input
-          type="text"
-          name="duration"
-          placeholder="1d"
-          class="file-input file-input-bordered file-input-sm w-1/5 max-w-xs ml-1"
-          required
-        />
-        <button type="submit" class="btn btn-sm ml-1">
-          Generate Shareable Link
-        </button>
-      </form>
-    </div>
+      <div class="p-4">
+        <!-- List files in the folder -->
+        <% if (folder.files.length === 0) { %>
+        <p>No files in this folder.</p>
+        <% } else { %>
+        <ul class="p-6">
+          <% folder.files.forEach(function(file) { %>
+          <li>
+            <a
+              class="text-slate-800 flex w-full max-w-xs items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+              role="button"
+              href="/files/<%= file.id %>"
+              ><%= file.name %></a
+            >
+          </li>
+          <% }) %>
+        </ul>
+        <% } %>
 
-    <div class="p-4">
-      <!-- List files in the folder -->
-      <% if (folder.files.length === 0) { %>
-      <p>No files in this folder.</p>
-      <% } else { %>
-      <ul class="p-6">
-        <% folder.files.forEach(function(file) { %>
-        <li>
-          <a
-            class="text-slate-800 flex w-full max-w-xs items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
-            role="button"
-            href="/files/<%= file.id %>"
-            ><%= file.name %></a
-          >
-        </li>
-        <% }) %>
-      </ul>
-      <% } %>
-
-      <!-- Form to upload file to this folder -->
-      <form
-        action="/folders/<%= folder.id %>/upload"
-        method="POST"
-        enctype="multipart/form-data"
-      >
-        <input
-          type="file"
-          name="file"
-          class="file-input file-input-bordered file-input-sm w-full max-w-xs"
-          required
-        />
-        <button type="submit" class="btn btn-sm">Upload File</button>
-      </form>
-    </div>
-
-    <!-- Option to go back to the list of folders -->
-    <a href="/folders">Back to Folders</a>
+        <!-- Form to upload file to this folder -->
+        <form
+          action="/folders/<%= folder.id %>/upload"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <input
+            type="file"
+            name="file"
+            class="file-input file-input-bordered file-input-sm w-full max-w-xs"
+            required
+          />
+          <button type="submit" class="btn btn-sm">Upload File</button>
+        </form>
+      </div>
+    </main>
+    <%- include('partials/footer') %>
   </body>
 </html>

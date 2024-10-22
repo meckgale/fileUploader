@@ -2,25 +2,31 @@
 <html lang="en">
   <%- include('partials/header') %>
 
-  <body>
+  <body class="min-h-screen flex flex-col">
     <%- include('partials/navbar') %>
-    <!-- Display flash messages -->
-    <div class="hero bg-base-200 min-h-screen">
-      <div class="hero-content text-center">
-        <div class="max-w-md">
-          <h1 class="text-5xl font-bold">Create / Upload / Download</h1>
-          <p class="py-6">Access you personal drive any time you want!</p>
-          <% if (currentUser) {%>
-          <a href="/folders">
-            <button class="btn btn-primary">Get Started</button>
-          </a>
-          <% } else { %>
-          <a href="/auth/signup"
-            ><button class="btn btn-primary">Get Started</button></a
-          >
-          <%} %>
+
+    <main class="flex-grow flex items-center justify-center bg-base-200">
+      <!-- Center the hero content both vertically and horizontally -->
+      <div class="hero w-full">
+        <div class="hero-content text-center">
+          <div class="max-w-md">
+            <h1 class="text-5xl font-bold">Create / Upload / Download</h1>
+            <p class="py-6">Access your personal drive any time you want!</p>
+            <% if (currentUser) { %>
+            <a href="/folders">
+              <button class="btn btn-primary">Get Started</button>
+            </a>
+            <% } else { %>
+            <a href="/auth/signup">
+              <button class="btn btn-primary">Get Started</button>
+            </a>
+            <% } %>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
+
+    <!-- Footer at the bottom of the page -->
+    <%- include('partials/footer') %>
   </body>
 </html>
