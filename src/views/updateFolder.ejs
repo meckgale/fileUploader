@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include('partials/header') %>
-  <body>
+  <body class="p-4">
     <form
       action="/folders/<%= folder.id %>/update"
       method="POST"
@@ -10,11 +10,12 @@
       <input
         type="text"
         name="name"
+        class="input input-bordered input-sm w-full max-w-xs"
         placeholder="Enter new folder name"
         value="<%= folder.name %>"
         required
       />
-      <button type="submit">Update Folder</button>
+      <button type="submit" class="btn btn-sm ml-2">Update Folder</button>
     </form>
   </body>
 </html>
