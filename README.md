@@ -1,6 +1,6 @@
 # Personal Drive - Stripped Down Google Drive
 
-[Live Demo](https://odd-tedra-meck-aae6a2a6.koyeb.app/)
+[Personal Drive](https://odd-tedra-meck-aae6a2a6.koyeb.app/)
 
 This project is a simplified version of Google Drive, allowing users to upload, manage, and share files and folders. 
 It was built using **Express**, **Prisma**, and **Cloudinary** (for cloud storage), with **session-based authentication** for securing access.
