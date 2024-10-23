@@ -169,10 +169,7 @@ exports.shareFolder = async (req, res) => {
       process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
     const shareableLink = `${baseUrl}/share/${shareToken}`;
 
-    req.flash(
-      "success",
-      `Folder shared successfully! Shareable link: ${shareableLink}`
-    );
+    req.flash("success", `${shareableLink}`);
     res.redirect(`/folders/${folderId}`);
   } catch (error) {
     console.error("Error sharing folder:", error);

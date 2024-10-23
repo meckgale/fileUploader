@@ -124,6 +124,9 @@ exports.downloadFile = async (req, res) => {
   const id = req.params.id; // Use `id` for file lookup
 
   try {
+    // Dynamically import node-fetch
+    const fetch = await import("node-fetch").then((mod) => mod.default);
+
     // Find the file by its `id`
     const file = await prisma.file.findUnique({ where: { id: id } });
 
@@ -138,8 +141,12 @@ exports.downloadFile = async (req, res) => {
         .json({ error: "File path is missing or incomplete" });
     }
 
-    // Redirect to the Cloudinary URL for downloading
-    res.redirect(file.path); // Redirect user to the Cloudinary URL for download
+    // Set headers to force download
+    res.setHeader("Content-Disposition", `attachment; filename="${file.name}"`);
+
+    // Fetch the file from Cloudinary and pipe it to the response
+    const response = await fetch(file.path);
+    response.body.pipe(res); // Stream the file to the client
   } catch (error) {
     console.error("Error downloading file:", error);
     res.status(500).json({ error: "Error downloading file" });

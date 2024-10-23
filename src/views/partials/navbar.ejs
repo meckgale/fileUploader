@@ -1,4 +1,4 @@
-<div class="navbar bg-accent">
+<div class="navbar bg-secondary">
   <div class="breadcrumbs flex-1 text-sm">
     <ul>
       <li>
@@ -51,11 +51,11 @@
       class="menu menu-horizontal rounded-box flex items-center space-x-2 text-base"
     >
       <% if (currentUser) {%>
-      <li><%= currentUser.username %></li>
-      <li><a href="/auth/logout">LOG OUT</a></li>
+      <li class="font-semibold italic"><%= currentUser.username %></li>
+      <li class="font-semibold"><a href="/auth/logout">LOG OUT</a></li>
       <% } else { %>
-      <li><a href="/auth/signup">SIGN UP</a></li>
-      <li><a href="/auth/login">LOG IN</a></li>
+      <li class="font-semibold"><a href="/auth/signup">SIGN UP</a></li>
+      <li class="font-semibold"><a href="/auth/login">LOG IN</a></li>
       <%} %>
     </ul>
   </div>

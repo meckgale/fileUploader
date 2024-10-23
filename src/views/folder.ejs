@@ -1,53 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-  <%- include('partials/header') %>
+<%- include('partials/header') %>
 
-  <body class="min-h-screen flex flex-col">
-    <%- include('partials/navbar') %>
+<body class="min-h-screen flex flex-col">
+  <%- include('partials/navbar') %>
 
-    <main class="flex-grow">
-      <div class="p-4 flex items-center">
-        <h1 class="text-3xl"><%= currentUser.username %>'s Folders</h1>
+  <main class="flex-grow">
+    <div class="p-4 flex items-center">
+      <h1 class="text-3xl"><%= currentUser.username %>'s Folders</h1>
 
-        <details class="dropdown dropdown-right p-4">
-          <summary class="btn btn-sm">Create Folder</summary>
-          <!-- Create new folder form -->
-          <form
-            action="/folders/create"
-            method="POST"
-            class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow flex items-center space-x-2"
-          >
-            <input
-              type="text"
-              name="name"
-              placeholder="Type folder name"
-              class="input input-bordered input-sm w-full max-w-xs mb-2"
-              required
-            />
-            <button type="submit" class="btn btn-xs ml-2">Create</button>
-          </form>
-        </details>
-      </div>
+      <details class="dropdown dropdown-right p-4">
+        <summary class="btn btn-sm">Create Folder</summary>
+        <!-- Create new folder form -->
+        <form
+          action="/folders/create"
+          method="POST"
+          class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow flex items-center space-x-2"
+        >
+          <input
+            type="text"
+            name="name"
+            placeholder="Type folder name"
+            class="input input-bordered input-sm w-full max-w-xs mb-2"
+            required
+          />
+          <button type="submit" class="btn btn-xs ml-2">Create</button>
+        </form>
+      </details>
+    </div>
 
-      <% if (folders.length===0) { %>
-      <p>No folders available.</p>
-      <% } else { %>
-      <!-- List of folders -->
-      <ul class="p-4">
-        <% folders.forEach(function(folder) { %>
-        <li class="text-xl">
-          <a
-            href="/folders/<%= folder.id %>"
-            class="text-slate-800 flex w-full max-w-xs items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
-            role="button"
-            ><%= folder.name %></a
-          >
-        </li>
-        <% }) %>
-      </ul>
-      <% } %>
-    </main>
-
-    <%- include('partials/footer') %>
-  </body>
-</html>
+    <% if (folders.length===0) { %>
+    <p class="p-4">No folders available.</p>
+    <% } else { %>
+    <!-- List of folders -->
+    <ul class="p-4">
+      <% folders.forEach(function(folder) { %>
+      <li class="text-xl">
+        <a
+          href="/folders/<%= folder.id %>"
+          class="text-slate-800 flex w-full max-w-xs items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+          role="button"
+          ><%= folder.name %></a
+        >
+      </li>
+      <% }) %>
+    </ul>
+    <% } %>
+  </main>
+  <%- include('partials/footer') %>
+</body>
